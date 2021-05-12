@@ -6,6 +6,7 @@ const winston = require('winston');
 require('winston-mongodb');
 require('express-async-errors');
 const ErrorMiddleware = require('./http/middleware/Error');
+const api = require('./routes/api');
 const app = express();
 
 class Application {
@@ -19,7 +20,7 @@ class Application {
     setupRoutesAndMiddlewares() {
         // built-in middleware
         app.use(express.json());
-        app.use(express.urlencoded({ extended: true }));
+        app.use(express.urlencoded({extended: true}));
         app.use(express.static('public'));
 
         if (app.get('env') === 'production') app.use(morgan('tiny'));
@@ -28,7 +29,7 @@ class Application {
         app.use(cors());
 
         //routes
-        /// ...
+        app.use('/api', api);
 
         app.use(ErrorMiddleware);
     }

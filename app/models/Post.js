@@ -1,4 +1,5 @@
 const mongoose = require ("mongoose");
+
 const schemaSender = new mongoose.Schema({
     phoneNumber : {
         type: Number,
@@ -17,7 +18,6 @@ const schema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
     },
     postTime: {
         type: Date,
@@ -40,8 +40,7 @@ const schema = new mongoose.Schema({
     },
     sender: {
         type: schemaSender,
-        required: true,
     }
 });
-const model= mongoose.model("post",schema);
-module.exports= model;
+const model = mongoose.model('post',schema);
+module.exports = model;

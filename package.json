@@ -17,7 +17,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "joi": "^17.2.1",
+    "joi": "^17.4.0",
     "joi-objectid": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "kavenegar": "^1.1.4",

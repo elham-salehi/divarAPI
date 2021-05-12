@@ -34,3 +34,48 @@
 {"message":"db connected","level":"info"}
 {"message":"db connected","level":"info"}
 {"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"errors":{"sender":{"name":"ValidatorError","message":"Path `sender` is required.","properties":{"message":"Path `sender` is required.","type":"required","path":"sender"},"kind":"required","path":"sender"}},"_message":"post validation failed","level":"error","message":"post validation failed: sender: Path `sender` is required. post validation failed: sender: Path `sender` is required.","stack":"ValidationError: post validation failed: sender: Path `sender` is required.\n    at model.Document.invalidate (D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2710:32)\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2530:17\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schema\\SingleNestedPath.js:248:14\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schematype.js:1256:9\n    at processTicksAndRejections (internal/process/task_queues.js:79:11)"}
+{"errors":{"sender":{"name":"ValidatorError","message":"Path `sender` is required.","properties":{"message":"Path `sender` is required.","type":"required","path":"sender"},"kind":"required","path":"sender"}},"_message":"post validation failed","level":"error","message":"post validation failed: sender: Path `sender` is required. post validation failed: sender: Path `sender` is required.","stack":"ValidationError: post validation failed: sender: Path `sender` is required.\n    at model.Document.invalidate (D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2710:32)\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2530:17\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schema\\SingleNestedPath.js:248:14\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schematype.js:1256:9\n    at processTicksAndRejections (internal/process/task_queues.js:79:11)"}
+{"message":"db connected","level":"info"}
+{"errors":{"sender":{"name":"ValidatorError","message":"Path `sender` is required.","properties":{"message":"Path `sender` is required.","type":"required","path":"sender"},"kind":"required","path":"sender"}},"_message":"post validation failed","level":"error","message":"post validation failed: sender: Path `sender` is required. post validation failed: sender: Path `sender` is required.","stack":"ValidationError: post validation failed: sender: Path `sender` is required.\n    at model.Document.invalidate (D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2710:32)\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2530:17\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schema\\SingleNestedPath.js:248:14\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schematype.js:1256:9\n    at processTicksAndRejections (internal/process/task_queues.js:79:11)"}
+{"message":"db connected","level":"info"}
+{"errors":{"sender":{"name":"ValidatorError","message":"Path `sender` is required.","properties":{"message":"Path `sender` is required.","type":"required","path":"sender"},"kind":"required","path":"sender"}},"_message":"post validation failed","level":"error","message":"post validation failed: sender: Path `sender` is required. post validation failed: sender: Path `sender` is required.","stack":"ValidationError: post validation failed: sender: Path `sender` is required.\n    at model.Document.invalidate (D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2710:32)\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\document.js:2530:17\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schema\\SingleNestedPath.js:248:14\n    at D:\\nodeJs-projects\\divarAPI\\node_modules\\mongoose\\lib\\schematype.js:1256:9\n    at processTicksAndRejections (internal/process/task_queues.js:79:11)"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
+{"message":"db connected","level":"info"}
