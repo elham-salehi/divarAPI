@@ -1,12 +1,4 @@
 const mongoose = require ("mongoose");
-
-const schemaSender = new mongoose.Schema({
-    phoneNumber : {
-        type: Number,
-        required: true,
-        unique: true
-    }
-});
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -36,11 +28,12 @@ const schema = new mongoose.Schema({
         required: true
     },
     images: {
-        type: [String]
+        type: String
     },
-    sender: {
-        type: schemaSender,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
     }
 });
-const model = mongoose.model('post',schema);
-module.exports = model;
+const PostModel = mongoose.model('post',schema);
+module.exports = PostModel;
