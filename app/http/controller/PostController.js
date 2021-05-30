@@ -3,12 +3,13 @@ const _ = require('lodash');
 const {validateCreatePost,validateUpdatePost} = require('../validator/PostValidator');
 
 class PostController {
-    async getAll (req,res){
-        const list = await PostModel.find().populate("user","phoneNumber -_id").select("title description price postTime city district");
+    async getPostsByCity (req,res){
+        const city = req.body.city;
+        const list = await PostModel.find({city: {$in: [city]}}).populate("user","phoneNumber -_id");
         res.send(list);
     };
     async getMyPosts (req,res){
-        const list = await PostModel.find({ user : { $in: [req.user._id] }}).populate("user","phoneNumber").select("title description price postTime city district phoneNumber");
+        let list = await PostModel.find({ user : { $in: [req.user._id] }}).populate("user","phoneNumber");
         res.send(list);
     };
     async getOne (req,res){
@@ -20,25 +21,26 @@ class PostController {
     async create (req,res){
        try{const {error} = validateCreatePost(req.body);
         if(error) return res.status(400).send(error.message);
-        // let post = new PostModel({..._.pick(req.body,[
-        //     'title',
-        //     'description',
-        //     'price',
-        //     'city',
-        //     'district',
-        //     'category'
-        // ]),images :req.file.path});
-           let post = new PostModel({
-               ..._.pick(req.body, [
-                   'title',
-                   'description',
-                   'price',
-                   'city',
-                   'district',
-                   'category',
-               ]),
-               user :req.user._id
-           });
+        let post = new PostModel({..._.pick(req.body,[
+            'title',
+            'description',
+            'price',
+            'city',
+            'district',
+            'category'
+        ]),images :req.files.map(file => file.filename), user :req.user._id});
+           console.log("req.files",req.files)
+           // let post = new PostModel({
+           //     ..._.pick(req.body, [
+           //         'title',
+           //         'description',
+           //         'price',
+           //         'city',
+           //         'district',
+           //         'category',
+           //     ]),
+           //     user :req.user._id
+           // });
         post = await post.save();
         res.send(post);}
         catch (err){

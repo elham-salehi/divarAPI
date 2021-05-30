@@ -2,11 +2,11 @@ const mongoose = require ("mongoose");
 const schema = new mongoose.Schema({
     title: {
         type: String,
-        required: true,
+
     },
     description: {
         type: String,
-        required: true
+
     },
     price: {
         type: Number,
@@ -21,14 +21,13 @@ const schema = new mongoose.Schema({
     },
     district: {
         type: String,
-        required: true
     },
     category: {
         type: String,
-        required: true
+
     },
     images: {
-        type: String
+        type: [String]
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

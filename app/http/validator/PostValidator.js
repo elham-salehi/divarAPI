@@ -7,7 +7,7 @@ const validateCreatePost = (data) => {
     description: Joi.string().required(),
     price: Joi.number(),
     city: Joi.string().required(),
-    district: Joi.string().required(),
+    district: Joi.string(),
     category: Joi.string().required(),
   });
   return schema.validate(data);
