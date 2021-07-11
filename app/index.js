@@ -90,7 +90,7 @@ class Application {
 //             db.close();
 //     });
 // });
-//
+
 // fs.readFile('categories.json', 'utf8', function (err, data) {
 //     let collection = db.collection('categories');
 //     collection.insert(JSON.parse(data), function (err, docs) {

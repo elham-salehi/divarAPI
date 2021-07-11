@@ -1,12 +1,10 @@
-const mongoose = require ("mongoose");
+const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
     title: {
         type: String,
-
     },
     description: {
         type: String,
-
     },
     price: {
         type: Number,
@@ -16,15 +14,15 @@ const schema = new mongoose.Schema({
         default: Date.now()
     },
     city: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "city"
     },
     district: {
         type: String,
     },
     category: {
-        type: String,
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category"
     },
     images: {
         type: [String]
@@ -34,5 +32,5 @@ const schema = new mongoose.Schema({
         ref: "user"
     }
 });
-const PostModel = mongoose.model('post',schema);
+const PostModel = mongoose.model('post', schema);
 module.exports = PostModel;

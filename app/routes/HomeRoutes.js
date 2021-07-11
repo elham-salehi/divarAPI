@@ -9,7 +9,7 @@ router.post('/login',userController.login);
 
 router.get('/categories',categoryController.getAll);
 router.get('/cities',cityController.getAll);
-router.post('/:city',postController.getPostsByCity);
+router.get('/:city',postController.getPostsByCity);
 router.get('/:id',postController.getOne);
 
 
