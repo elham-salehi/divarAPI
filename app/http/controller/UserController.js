@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const myCache = new NodeCache({ stdTTL: 2 * 60 * 60, checkperiod: 5 * 60 });
 
 let api = Kavenegar.KavenegarApi({
-    apikey: '687976585DD', //your api key
+    apikey: 'APICODE' //your api key
 });
 
 class UserController {
@@ -22,7 +22,7 @@ class UserController {
         api.Send({
                 message:  `میتوانید از کد ${number} برای فعالسازی استفاده کنید`,
                 sender: "10004346",
-                //receptor: your number
+                receptor: 91234567890 //your phone
             },
             function(response, status) {
                 console.log(response);

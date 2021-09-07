@@ -13,7 +13,6 @@ let storage = multer.diskStorage({
 })
 const upload = multer({storage: storage})
 
-
 router.get('/my-posts',Auth,postController.getMyPosts);
 router.post('/new',Auth,upload.array("images",10),postController.create);
 router.put('/:id',Auth,postController.update);

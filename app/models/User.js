@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
     phoneNumber : {
         type: Number,
         required: true,
-    }
+    },
 });
 schema.methods.generateAuthToken = function () {
     const data = {

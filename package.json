@@ -28,7 +28,13 @@
     "node-cache": "^5.1.2",
     "pug": "^3.0.0",
     "winston": "^3.3.3",
-    "winston-mongodb": "^5.0.5"
+    "winston-mongodb": "^5.0.5",
+    "socket.io": "^4.1.3",
+    "os-utils": "^0.0.14",
+    "http": "^0.0.1-security",
+    "axios": "^0.21.1",
+    "path": "^0.12.7",
+    "body-parser": "^1.19.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

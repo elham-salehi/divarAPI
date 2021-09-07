@@ -11,6 +11,7 @@ class PostController {
             const list = await PostModel.find({city: {$in: [city._id]}}).populate("user", "phoneNumber")
                 .populate("city", "name" );
             res.status(200).send(list);
+
         }
         catch (err){
             console.log(err)
@@ -22,8 +23,8 @@ class PostController {
     };
     async getOne (req,res){
         const id = req.params.id;
-        const data = await PostModel.findById(id);
-        if(!data) return res.status(404).send("not found!");
+        let data = await PostModel.findById(id).populate("user", "phoneNumber")
+            .populate("city", "name-_id" ).populate("category","name-_id")
         res.send(data);
     };
     async create (req,res){
@@ -31,7 +32,6 @@ class PostController {
         if(error) return res.status(400).send(error.message);
         const city = await CityModel.findOne({ name : { $in: [req.body.city] }});
         const category = await CategoryModel.findOne({ name : { $in: [req.body.category] }});
-           console.log("test",{city},{category})
         let post = new PostModel({..._.pick(req.body,[
             'title',
             'description',
