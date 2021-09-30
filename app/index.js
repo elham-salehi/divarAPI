@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const config = require('config');
 const morgan = require('morgan');
 const winston = require('winston');
 require('winston-mongodb');
@@ -8,8 +9,9 @@ require('express-async-errors');
 const ErrorMiddleware = require('./http/middleware/Error');
 const api = require('./routes/api');
 const app = express();
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const io = require("socket.io");
-const fs = require('fs');
 let db = '';
 const ConversationModel = require('../app/models/Conversation');
 const PostModel = require("./models/Post");
@@ -34,17 +36,33 @@ class Application {
         // third-party middleware
         app.use(cors());
 
+
         //routes
         app.use('/api', api);
 
+
         app.use(ErrorMiddleware);
+
+        //swagger
+        const options = {
+            definition: {
+                info: {
+                    title: 'Library API',
+                    version: '1.0.0',
+                },
+            },
+            apis: ['./app/routes/HomeRoutes.js'],
+        };
+        const swaggerSpec = swaggerJsdoc(options);
+        app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
     }
 
     setupConfigs() {
         winston.add(new winston.transports.File({ filename: 'error-log.log' }));
         winston.add(
             new winston.transports.MongoDB({
-                db: 'mongodb://localhost:27017/divar',
+                db: process.env.MONGODB_URI || config.get('databaseAddress'),
                 level: 'error',
             }),
         );
@@ -64,7 +82,7 @@ class Application {
 
     setupMongoose() {
         mongoose
-            .connect('mongodb://localhost:27017/divar', {
+            .connect(process.env.MONGODB_URI || config.get('databaseAddress'), {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             })
@@ -75,10 +93,10 @@ class Application {
             .catch((err) => {
                 console.error('db not connected', err);
             });
-         db = mongoose.connection;
+        db = mongoose.connection;
     }
     setupExpressServer() {
-        const port = process.env.myPort || 3010;
+        const port = process.env.PORT || 3010;
         const server = app.listen(port, (err) => {
             if (err) console.log(err);
             else console.log(`app listen to port ${port}`);
@@ -91,23 +109,23 @@ class Application {
         mySocket.on("connection", (socket) => {
             socket.on("joinUser", async (data) => {
                 userJoin(socket.id,data.user);
-               let users = getAllUser();
-                    mySocket.emit("showOnlineUsers",users);
+                let users = getAllUser();
+                mySocket.emit("showOnlineUsers",users);
             });
             socket.on("loadOldConversations", async (user) =>{
                 try{
-                   let conversations = await ConversationModel.find({ $or:[{user:{$in: [user.id]}}, {contact : {$in: [user.id]}}]}).populate("user", "phoneNumber")
+                    let conversations = await ConversationModel.find({ $or:[{user:{$in: [user.id]}}, {contact : {$in: [user.id]}}]}).populate("user", "phoneNumber")
                         .populate("contact","phoneNumber").populate("post", "images title user")
-                       .populate("messages","seen");
+                        .populate("messages","seen");
                     let newConversations=[];
                     for(let i = 0; i < conversations.length ; i++){
                         let hasUnreadMessages ='';
-                          let unreadMessages = await conversations[i].messages.find(message => (message.seen === false && message.sender != user.id));
+                        let unreadMessages = await conversations[i].messages.find(message => (message.seen === false && message.sender != user.id));
                         if(unreadMessages)
                             hasUnreadMessages = true;
                         else
-                           hasUnreadMessages = false;
-                       await newConversations.push({"_id":conversations[i]._id,"user":conversations[i].user ,
+                            hasUnreadMessages = false;
+                        await newConversations.push({"_id":conversations[i]._id,"user":conversations[i].user ,
                             "contact":conversations[i].contact,"post": conversations[i].post,
                             "messages":conversations[i].messages,"lastMsgTime": conversations[i].lastMsgTime,hasUnreadMessages });
 
@@ -148,9 +166,9 @@ class Application {
                 try {
                     let conversation = await ConversationModel.findById(data.conversation._id).populate("user", "phoneNumber")
                         .populate("contact","phoneNumber").populate("post", "images title user");
-                   await conversation.messages.map((message) => {
+                    await conversation.messages.map((message) => {
                         if(data.user == message.recipient) {
-                        message.seen = true
+                            message.seen = true
 
                         }
                     });
@@ -162,7 +180,7 @@ class Application {
                         "contact":conversation.contact,"post": conversation.post,
                         "messages":conversation.messages,"lastMsgTime": conversation.lastMsgTime,"hasUnreadMessages" :false};
                     if(user) mySocket.to(user.socketId).emit("showLoadOldMessages",{user: data.user,conversation: newConversation});
-                   if(contact) mySocket.to(contact.socketId).emit("showLoadOldMessages",{user: data.user, conversation: newConversation});
+                    if(contact) mySocket.to(contact.socketId).emit("showLoadOldMessages",{user: data.user, conversation: newConversation});
                 }
                 catch(err){
                     console.log(err)
@@ -170,22 +188,22 @@ class Application {
             });
             socket.on("isTyping",async (sender) => {
 
-               mySocket.emit("showIsTyping", sender);
+                mySocket.emit("showIsTyping", sender);
             });
             socket.on("newMessage",async (message) => {
                 try{
-                const recipient=getUser(message.recipient);
-                const sender=getUser(message.sender);
-                if(!message.conversation){
-                   let conversation= await new ConversationModel({user: message.sender , contact: message.recipient ,post: message.postId});
-                    conversation = await conversation.save();
-                       conversation= await ConversationModel.findById(conversation._id).populate("user", "phoneNumber")
-                       .populate("contact","phoneNumber").populate("post", "images title user");
-                    message.conversation= conversation;
-                }
-                let conversation = await ConversationModel.findById(message.conversation).populate("user", "phoneNumber")
-                    .populate("contact","phoneNumber").populate("post", "images title user");;
-               await conversation.messages.push({text: message.text, sender: message.sender ,recipient:message.recipient, time: message.time});
+                    const recipient=getUser(message.recipient);
+                    const sender=getUser(message.sender);
+                    if(!message.conversation){
+                        let conversation= await new ConversationModel({user: message.sender , contact: message.recipient ,post: message.postId});
+                        conversation = await conversation.save();
+                        conversation= await ConversationModel.findById(conversation._id).populate("user", "phoneNumber")
+                            .populate("contact","phoneNumber").populate("post", "images title user");
+                        message.conversation= conversation;
+                    }
+                    let conversation = await ConversationModel.findById(message.conversation).populate("user", "phoneNumber")
+                        .populate("contact","phoneNumber").populate("post", "images title user");;
+                    await conversation.messages.push({text: message.text, sender: message.sender ,recipient:message.recipient, time: message.time});
                     await conversation.save();
                     let msgLength=conversation.messages.length;
                     await conversation.set({lastMsgTime:conversation.messages[msgLength-1].time});
@@ -194,15 +212,15 @@ class Application {
                     if(recipient) mySocket.to(recipient.socketId).emit("showNewMessage", {...message,conversation:conversation,seen:false});
 
 
-            }
-        catch (err){
-                console.log(err);
-            }
+                }
+                catch (err){
+                    console.log(err);
+                }
             });
             socket.on("seenMessage", async (data) => {
-                    let conversation = await ConversationModel.findById(data.message.conversation._id);
-                     conversation.messages[(conversation.messages.length)-1].seen = true
-                    await conversation.save();
+                let conversation = await ConversationModel.findById(data.message.conversation._id);
+                conversation.messages[(conversation.messages.length)-1].seen = true
+                await conversation.save();
                 data.message.seen=true;
 
                 mySocket.emit("showSeenMessage",data);
@@ -218,22 +236,6 @@ class Application {
     }
 
 }
-
-// fs.readFile('cities.json', 'utf8', function (err, data) {
-//     let collection = db.collection('cities');
-//     collection.insert(JSON.parse(data), function (err, docs) { // Should succeed
-//             console.log("[" + data + "]");
-//             db.close();
-//     });
-// });
-
-// fs.readFile('categories.json', 'utf8', function (err, data) {
-//     let collection = db.collection('categories');
-//     collection.insert(JSON.parse(data), function (err, docs) {
-//             console.log("[" + data + "]");
-//             db.close();
-//     });
-// });
 
 module.exports = Application;
 

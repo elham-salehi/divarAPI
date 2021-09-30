@@ -8,6 +8,14 @@ router.post('/sendVerifyCode',userController.sendVerifyCode);
 router.post('/login',userController.login);
 
 router.get('/categories',categoryController.getAll);
+/**
+ * @swagger
+ * /cities:
+ *   get:
+ *     description: get all cities!
+ *     responses:
+ *       200:
+ */
 router.get('/cities',cityController.getAll);
 router.get('/:city',postController.getPostsByCity);
 router.get('/posts/:id',postController.getOne);
