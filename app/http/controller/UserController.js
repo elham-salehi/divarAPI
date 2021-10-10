@@ -28,7 +28,7 @@ class UserController {
                 console.log(response);
                 console.log(status);
             });
-        res.send(true);
+        res.status(200).send(number);
     };
     async login(req, res) {
         if (!req.body.code) return res.status(400).send('باید یک کد بفرستید');

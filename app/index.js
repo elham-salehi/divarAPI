@@ -46,15 +46,25 @@ class Application {
         //swagger
         const options = {
             definition: {
+                openapi: "3.0.0",
+                components: {},
                 info: {
-                    title: 'Library API',
+                    title: 'Divar API',
                     version: '1.0.0',
+                    description:
+                        "This is a CRUD API application made with Express and documented with Swagger",
                 },
+                servers: [
+                    {
+                        url: "https://divar-api.herokuapp.com",
+                    },
+                ],
             },
             apis: ['./app/routes/HomeRoutes.js'],
         };
         const swaggerSpec = swaggerJsdoc(options);
         app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
     }
 

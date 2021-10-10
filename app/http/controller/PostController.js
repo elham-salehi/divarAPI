@@ -37,7 +37,7 @@ class PostController {
             'description',
             'price',
             'district',
-        ]),images :req.files.map(file => file.filename), user :req.user._id, city :city._id, category :category._id});
+        ]),images :req.files.map(file => file.key), user :req.user._id, city :city._id, category :category._id});
         post = await post.save();
         res.send(post);}
         catch (err){

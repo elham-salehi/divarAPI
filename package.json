@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1004.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -28,6 +29,7 @@
     "mongoose": "^6.0.8",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "node-cache": "^5.1.2",
     "os-utils": "^0.0.14",
     "path": "^0.12.7",

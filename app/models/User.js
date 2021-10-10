@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const schema = new mongoose.Schema({
     phoneNumber : {
-        type: Number,
+        type: String,
         required: true,
     },
 });
