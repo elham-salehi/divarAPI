@@ -28,7 +28,14 @@ class PostController {
         res.send(data);
     };
     async create (req,res){
-       try{const {error} = validateCreatePost(req.body);
+       try{const {error} = validateCreatePost(_.pick(req.body,[
+           'title',
+           'description',
+           'price',
+           'city',
+           'district',
+           'category'
+       ]));
         if(error) return res.status(400).send(error.message);
         const city = await CityModel.findOne({ name : { $in: [req.body.city] }});
         const category = await CategoryModel.findOne({ name : { $in: [req.body.category] }});

@@ -1,9 +1,8 @@
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
 const validateUser = (data) => {
   const schema = Joi.object({
-    phoneNumber: Joi.string().required(),
+    phoneNumber: Joi.string().min(11).max(11).required()
   });
   return schema.validate(data);
 };

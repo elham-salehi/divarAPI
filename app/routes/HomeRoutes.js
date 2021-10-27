@@ -45,12 +45,9 @@ const categoryController = require('../http/controller/CategoryController');
  *         - title
  *         - description
  *         - price
- *         - postTime
  *         - city
- *         - district
  *         - category
  *         - images
- *         - user
  *       properties:
  *         id:
  *           type: string
@@ -72,12 +69,15 @@ const categoryController = require('../http/controller/CategoryController');
  *           description: The city of the post
  *         district:
  *           type: string
- *           description: The district of the post's city
+ *           description: The district of the post's city (if city is ("تهران"
  *         category:
  *           type: string
  *           description: The post category
  *         images:
- *           type: [string]
+ *           type: array
+ *           items:
+ *              type: string
+ *              format: binary
  *           description: The post images
  *         user:
  *           type: string

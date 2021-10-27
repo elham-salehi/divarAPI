@@ -1,5 +1,4 @@
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
 const validateCreatePost = (data) => {
   const schema = Joi.object({

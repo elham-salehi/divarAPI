@@ -47,7 +47,17 @@ class Application {
         const options = {
             definition: {
                 openapi: "3.0.0",
-                components: {},
+                components: {
+                    securitySchemes: {
+                        jwt: {
+                            type: "apiKey",
+                            scheme: "bearer",
+                            in: "header",
+                            name: "x-auth-token",
+                            bearerFormat: "jwt"
+                        },
+                    }
+                },
                 info: {
                     title: 'Divar API',
                     version: '1.0.0',
@@ -60,7 +70,7 @@ class Application {
                     },
                 ],
             },
-            apis: ['./app/routes/HomeRoutes.js'],
+            apis: ['./app/routes/*.js'],
         };
         const swaggerSpec = swaggerJsdoc(options);
         app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

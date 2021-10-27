@@ -25,3 +25,5 @@ yarn-error.log*
 error-log.log*
 
 apiKeys.js
+
+Dockerfile*
